@@ -96,9 +96,9 @@ export class OrderPage implements OnInit {
   getProducts() {
     var data = [];
     for (let v of this.shared.cartProducts) {
-      var obj = { quantity: v.quantity, product_id: v.product_id, total: v.total.toString(), price: v.price.toString() };
+      var obj = {Size:v.meta_data[0], quantity: v.quantity, product_id: v.product_id, total: v.total.toString(), price: v.price.toString() };
       if (v.variation_id) Object.assign(obj, { variation_id: v.variation_id })
-      //if (v.meta_data) Object.assign(obj, { meta_data: v.meta_data })
+      if (v.meta_data) Object.assign(obj, { meta_data: v.meta_data })
       data.push(obj);
     }
     return data;

@@ -24,7 +24,9 @@ if (localStorage.languageCode == undefined) {
 
 @Injectable()
 export class ConfigService {
-  public url: string = "https://prityshop.com/";
+  public url: string = "https://cors-anywhere.herokuapp.com/https://prityshop.com/";
+  public url2: string = "https://prityshop.com"; //https://cors-anywhere.herokuapp.com/
+   //https://cors-anywhere.herokuapp.com/
   public consumerKey: string = "ck_da762414692a236c5db518a709f9335f81d88cde";
   public consumerSecret: string = "cs_4bd7359157697a8356c86597164a6faa7434ff98";
 
@@ -157,9 +159,11 @@ export class ConfigService {
     if (this.appNavigationTabs == false) this.currentRoute = "";
   }
   getWithUrl(url) {
+    console.log('getWIthURL');
     return this.getDataHttp(url);
   }
   getWoo(url) {
+    console.log('get with woo');
     let request = this.getUrl("get", url).url;
     return this.getDataHttp(request);
   }
@@ -168,23 +172,7 @@ export class ConfigService {
     let loadedData = this.loadAlreadyLoadedHttp(request);
     if (loadedData.found == false) {
       return new Promise((resolve) => {
-        if (this.platform.is("cordova")) {
-          this.httpNative
-            .get(request, {}, {})
-            .then((data) => {
-              let d = JSON.parse(data.data);
-              this.storeHttpData(request, d);
-              resolve(d);
-              //console.log(data.status);
-              //console.log(data.data); // data received by server
-              //console.log(data.headers);
-            })
-            .catch((error) => {
-              console.log(error.status);
-              console.log(error.error); // error message as string
-              console.log(error.headers);
-            });
-        } else {
+      
           this.http.get(request).subscribe(
             (data: any) => {
               let d = data;
@@ -196,7 +184,7 @@ export class ConfigService {
               console.log(err);
             }
           );
-        }
+        
       });
     } else {
       return new Promise((resolve) => {
@@ -310,7 +298,7 @@ export class ConfigService {
       this.storage.get("appSettings").then((val) => {
         if (val == null) {
           this.http
-            .get(this.url + "/api/appsettings/get_all_settings/?insecure=cool")
+            .get(this.url + "/api/appsettings/get_all_settings")
             .subscribe((data: any) => {
               this.appSettings = data;
               this.storage.set("appSettings", this.appSettings);
@@ -382,7 +370,7 @@ export class ConfigService {
   }
   checkingNewSettingsFromServer() {
     this.http
-      .get(this.url + "/api/appsettings/get_all_settings/?insecure=cool")
+      .get(this.url + "/api/appsettings/get_all_settings/")
       .subscribe((data: any) => {
         var settings = data;
         this.address =

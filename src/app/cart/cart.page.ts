@@ -135,6 +135,7 @@ export class CartPage implements OnInit {
   ionViewWillEnter() {
     //if (this.config.admob == 1) this.shared.showAd();
     this.updateCart();
+    console.log(this.shared.cartProducts);
   }
   //============================================================================================  
   updateCart() {

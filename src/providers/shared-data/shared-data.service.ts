@@ -143,7 +143,7 @@ export class SharedDataService {
   }
   onStart() {
     //banners
-    this.config.getWithUrl(this.config.url + '/api/appsettings/get_all_banners/?insecure=cool').then((data: any) => {
+    this.config.getWithUrl(this.config.url + '/api/appsettings/get_all_banners').then((data: any) => {
       this.banners = data.data;
     });
     // //getting tab 1 products?status=publish
@@ -531,7 +531,7 @@ export class SharedDataService {
     for (let v of this.cartProducts) {
       var obj = { quantity: v.quantity, product_id: v.product_id, total: v.total.toString() };
       if (v.variation_id) Object.assign(obj, { variation_id: v.variation_id })
-      //if (v.meta_data) Object.assign(obj, { meta_data: v.meta_data })
+      if (v.meta_data) Object.assign(obj, { meta_data: v.meta_data })
       data.push(obj);
     }
     return data;
@@ -600,7 +600,7 @@ export class SharedDataService {
     // var uri = encodeURIComponent(JSON.stringify(data));
     // let d = { "order_link": data };
     return new Promise(resolve => {
-      this.http.post(this.config.url + '/api/appsettings/ionic_data_link/?insecure=cool', data).subscribe(dat => {
+      this.http.post(this.config.url + '/api/appsettings/ionic_data_link/', data).subscribe(dat => {
         console.log(dat);
         resolve(dat);
         this.loading.hide();
@@ -630,15 +630,15 @@ export class SharedDataService {
       clearsessioncache: 'yes',
       hideurlbar: "yes",
       zoom: 'no',//Android only ,shows browser zoom controls 
-      closebuttoncolor: this.headerHexColorContrast,
-      toolbarcolor: this.headerHexColor,
+  
       toolbar: 'yes', //iOS only 
     };
     console.log(options);
     this.uploadDataToServer(data).then((id) => {
-      console.log("id from data = " + id);
-      const b = this.iab.create(this.config.url + "/mobile-checkout/?order_id=" + id, '_blank', options);
+      const b = this.iab.create(this.config.url2 + "/mobile-checkout/?order_id=" + id, '_blank', options);
       let orderPlaced = false;
+      console.log("id from data = " + id);
+
       b.on('loadstart').subscribe(res => {
         this.translateString('Loading').then((res: string) => {
           this.spinnerDialog.show("", res, true, { overlayOpacity: 1.00 });
@@ -656,6 +656,8 @@ export class SharedDataService {
           b.close();
         }
 
+      },err=>{
+        alert('error')
       });
       b.on('loadstop').subscribe(res => {
         console.log('loadstop');

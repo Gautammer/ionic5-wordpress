@@ -384,6 +384,7 @@ export class ProductDetailPage implements OnInit {
   //===============================================================================================================================
   selectVariation() {
     console.log(this.tempAllVariableAttributes);
+    console.log(this.variations);
     let pId = null;
     for (let i of this.tempAllVariableAttributes) {
       if (i.select == true) { pId = i.id; break; }
