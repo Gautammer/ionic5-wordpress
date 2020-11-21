@@ -1,6 +1,6 @@
 {
-  "appId": "com.example.app",
-  "appName": "ionicWoocommerce",
+  "appId": "com.prityshop.app",
+  "appName": "Prity Shop",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

@@ -30,7 +30,9 @@
   font-family: "Roboto";
   src: url("assets/fonts/Roboto/Roboto-Regular.ttf");
 }
-
+ion-header ion-toolbar ion-title ion-img{
+  margin-top: 10px;
+}
 :root,
 :root[mode="md"],
 :root[mode="ios"] {
