@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title> {{ data?.title.rendered }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="data" style="padding-left: 17px; padding-left: 17px">
+    <!-- <img [src]="data.media_url" /> -->
+    <div [innerHTML]="data.content.rendered" padding></div>
+  </div>
+</ion-content>

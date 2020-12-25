@@ -1,7 +1,60 @@
+ion-tab-bar.md.hydrated {
+  display: none;
+}
+
+ion-tab-bar.ios.hydrated {
+  display: none;
+}
+
+.prity_shop_ {
+  float: left !important;
+  text-align: left !important;
+  margin-left: -38px;
+}
+
+p.p_name_men {
+  font-size: 12px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.7);
+}
+
 ion-content {
   .swiper-slide {
     width: 40%;
   }
+
+  p.hot-line {
+    font-size: 20px;
+    font-weight: bold;
+    font-family: system-ui;
+    color: var(--ion-color-primary);
+  }
+
+  p.title-txt {
+    margin-left: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: system-ui;
+    color: var(--ion-color-primary);
+  }
+
+  img.brandimg {
+    height: 123px;
+    text-align: center;
+  }
+
+  .img_cr {
+    text-align: center;
+  }
+
+  ion-tab-bar.md.hydrated {
+    display: none;
+  }
+
+  ion-tab-bar.ios.hydrated {
+    display: none;
+  }
+
   ion-grid {
     padding-bottom: 10px !important;
     ion-row {
@@ -46,7 +99,6 @@ ion-content {
     }
   }
 
-
   ion-slides {
     ion-slide {
       &:last-child {
@@ -54,5 +106,4 @@ ion-content {
       }
     }
   }
-
 }

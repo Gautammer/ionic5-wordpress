@@ -558,6 +558,18 @@ const routes: Routes = [
               ),
           },
           {
+            path: "post",
+            loadChildren: () =>
+              import("../post/post.module").then((m) => m.PostPageModule),
+          },
+          {
+            path: "post-details",
+            loadChildren: () =>
+              import("../post-details/post-details.module").then(
+                (m) => m.PostDetailsPageModule
+              ),
+          },
+          {
             path: "about-us",
             loadChildren: () =>
               import("../about-us/about-us.module").then(

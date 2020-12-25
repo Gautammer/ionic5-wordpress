@@ -4,6 +4,14 @@ ion-img {
   opacity: 0.1;
 }
 
+ion-img.md.hydrated {
+  background-color: black !important;
+}
+
+ion-img.ios.hydrated {
+  background-color: black !important;
+}
+
 // For Form
 form {
   padding-top: 28px;

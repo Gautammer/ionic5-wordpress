@@ -24,9 +24,10 @@ if (localStorage.languageCode == undefined) {
 
 @Injectable()
 export class ConfigService {
-  public url: string = "https://cors-anywhere.herokuapp.com/https://prityshop.com/";
+  // https://cors-anywhere.herokuapp.com/
+  public url: string = "https://prityshop.com/";
   public url2: string = "https://prityshop.com"; //https://cors-anywhere.herokuapp.com/
-   //https://cors-anywhere.herokuapp.com/
+  //https://cors-anywhere.herokuapp.com/
   public consumerKey: string = "ck_da762414692a236c5db518a709f9335f81d88cde";
   public consumerSecret: string = "cs_4bd7359157697a8356c86597164a6faa7434ff98";
 
@@ -159,11 +160,11 @@ export class ConfigService {
     if (this.appNavigationTabs == false) this.currentRoute = "";
   }
   getWithUrl(url) {
-    console.log('getWIthURL');
+    console.log("getWIthURL");
     return this.getDataHttp(url);
   }
   getWoo(url) {
-    console.log('get with woo');
+    console.log("get with woo");
     let request = this.getUrl("get", url).url;
     return this.getDataHttp(request);
   }
@@ -172,19 +173,17 @@ export class ConfigService {
     let loadedData = this.loadAlreadyLoadedHttp(request);
     if (loadedData.found == false) {
       return new Promise((resolve) => {
-      
-          this.http.get(request).subscribe(
-            (data: any) => {
-              let d = data;
-              this.storeHttpData(request, d);
-              resolve(d);
-            },
-            (err) => {
-              console.log("Error : " + request);
-              console.log(err);
-            }
-          );
-        
+        this.http.get(request).subscribe(
+          (data: any) => {
+            let d = data;
+            this.storeHttpData(request, d);
+            resolve(d);
+          },
+          (err) => {
+            console.log("Error : " + request);
+            console.log(err);
+          }
+        );
       });
     } else {
       return new Promise((resolve) => {

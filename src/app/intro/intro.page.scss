@@ -1,9 +1,65 @@
+ion-content.md.hydrated {
+  p.wel_p {
+    font-family: system-ui;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  p.wel_p_t {
+    font-family: system-ui;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: -3px;
+  }
+
+  background: rgb(23, 230, 48);
+  background: linear-gradient(
+    90deg,
+    rgba(23, 230, 48, 1) 0%,
+    rgba(29, 241, 104, 1) 35%,
+    rgba(36, 255, 178, 1) 100%
+  );
+  --background: linear-gradient(
+    90deg,
+    rgba(23, 230, 48, 1) 0%,
+    rgba(29, 241, 104, 1) 35%,
+    rgba(36, 255, 178, 1) 100%
+  );
+}
+
+ion-content.ios.hydrated {
+  background: rgb(23, 230, 48);
+  background: linear-gradient(
+    90deg,
+    rgba(23, 230, 48, 1) 0%,
+    rgba(29, 241, 104, 1) 35%,
+    rgba(36, 255, 178, 1) 100%
+  );
+}
+
 ion-content {
-  --background: none !important;
-  background: url("/assets/intro/intro_top_bg.png");
   background-position: top center;
   background-size: auto 80%;
   background-repeat: no-repeat;
+
+  img.logo_th {
+    height: 79px;
+  }
+
+  .contain__ {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 14px;
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 20%;
+  }
+
   ion-slides {
     height: 99%;
     --bullet-background: black !important;
