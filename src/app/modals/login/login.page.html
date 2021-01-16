@@ -59,9 +59,10 @@
     >{{ "I've forgotten my password?" | translate }}</ion-button
   >
 
-  <!-- <ion-button *ngIf="config.fbButton==1" expand="full" (click)="facebookLogin()">{{ 'Login with' | translate }}
+  <ion-button *ngIf="config.fbButton==1" expand="full" (click)="facebookLogin()"
+    >{{ 'Login with' | translate }}
     <ion-icon name="logo-facebook"></ion-icon>
-  </ion-button> -->
+  </ion-button>
 
   <ion-button expand="block" fill="outline" (click)="openSignUpPage()"
     >{{ 'Register' | translate }}</ion-button

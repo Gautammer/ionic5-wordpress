@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { ConfigService } from "src/providers/config/config.service";
 import { NavController } from "@ionic/angular";
 import { SharedDataService } from "src/providers/shared-data/shared-data.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-home4",
@@ -20,10 +21,16 @@ export class Home4Page implements OnInit {
   Cat_Two: any;
   mens_products: any;
   Mobiles_products: any;
+  NewCat_products: any;
+  newCatShow = false;
+  womens_products: any;
+  kids_products: any;
   constructor(
     public nav: NavController,
     public config: ConfigService,
-    public shared: SharedDataService
+    public shared: SharedDataService,
+    public router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     // console.log(shared);
 
@@ -94,48 +101,59 @@ export class Home4Page implements OnInit {
           });
       });
 
-    this.Cat_ = [
-      {
-        image: shared.tab1[0].images[0].src,
-        name: shared.tab1[0].name,
-        id: shared.tab1[0].id,
-      },
-      {
-        image: shared.tab1[1].images[0].src,
-        name: shared.tab1[1].name,
-        id: shared.tab1[1].id,
-      },
-      // {
-      //   image: shared.categories[0].image.src,
-      //   name: shared.categories[0].name,
-      //   id: shared.categories[0].id,
-      // },
-      // {
-      //   image: shared.categories[1].image.src,
-      //   name: shared.categories[1].name,
-      //   id: shared.categories[1].id,
-      // },
-      // {
-      //   image: shared.categories[2].image.src,
-      //   name: shared.categories[2].name,
-      //   id: shared.categories[2].id,
-      // },
-      // {
-      //   image: shared.categories[3].image.src,
-      //   name: shared.categories[3].name,
-      //   id: shared.categories[3].id,
-      // },
-      // {
-      //   image: shared.categories[4].image.src,
-      //   name: shared.categories[4].name,
-      //   id: shared.categories[4].id,
-      // },
-      // {
-      //   image: shared.categories[5].image.src,
-      //   name: shared.categories[5].name,
-      //   id: shared.categories[5].id,
-      // },
-    ];
+    let query3 = "&cat_id=315";
+    this.config
+      .getWithUrl(
+        this.config.url +
+          "/api/appsettings/ionic_filter_products/?insecure=cool" +
+          query3
+      )
+      .then((data: any) => {
+        console.log(data);
+        console.log(data.data);
+        let rep = data.data.slice(1, -1);
+        console.log(rep);
+        let len = rep;
+        console.log(data.data);
+        this.config
+          .getWithUrl(
+            this.config.url +
+              "/wp-json/wc/v3/products?include=" +
+              len +
+              "&status=publish&order=desc&order_by=date&lang=en&currency=USD&consumer_key=ck_da762414692a236c5db518a709f9335f81d88cde&consumer_secret=cs_4bd7359157697a8356c86597164a6faa7434ff98"
+          )
+          .then((data: any) => {
+            this.kids_products = data;
+            // console.log(JSON.stringify(this.Mobiles_products));
+          });
+      });
+
+    let query4 = "&cat_id=243";
+    this.config
+      .getWithUrl(
+        this.config.url +
+          "/api/appsettings/ionic_filter_products/?insecure=cool" +
+          query4
+      )
+      .then((data: any) => {
+        console.log(data);
+        console.log(data.data);
+        let rep = data.data.slice(1, -1);
+        console.log(rep);
+        let len = rep;
+        console.log(data.data);
+        this.config
+          .getWithUrl(
+            this.config.url +
+              "/wp-json/wc/v3/products?include=" +
+              len +
+              "&status=publish&order=desc&order_by=date&lang=en&currency=USD&consumer_key=ck_da762414692a236c5db518a709f9335f81d88cde&consumer_secret=cs_4bd7359157697a8356c86597164a6faa7434ff98"
+          )
+          .then((data: any) => {
+            this.womens_products = data;
+            // console.log(JSON.stringify(this.womens_products));
+          });
+      });
 
     // this.Cat_Two = [
     //   {
@@ -209,8 +227,61 @@ export class Home4Page implements OnInit {
     }
   }
 
-  openProducts(value) {
-    this.nav.navigateForward("/products/0/0/" + value);
+  openProducts(id, name) {
+    console.log("Looong");
+
+    let count = 0;
+    for (let val of this.shared.allCategories) {
+      if (val.parent == id) {
+        count++;
+      }
+    }
+    if (count == 0) {
+      this.router.navigateByUrl(
+        "/tabs/categories/products/" + id + "/" + name + "/newest"
+      );
+    } else {
+      this.router.navigateByUrl(
+        "/tabs/categories/categories/" + id + "/" + name
+      );
+    }
+
+    // let query2 = "&cat_id=" + id;
+    // this.config
+    //   .getWithUrl(
+    //     this.config.url +
+    //       "/api/appsettings/ionic_filter_products/?insecure=cool" +
+    //       query2
+    //   )
+    //   .then((data: any) => {
+    //     console.log(data);
+    //     console.log(data.data);
+    //     let rep = data.data.slice(1, -1);
+    //     console.log(rep);
+    //     let len = rep;
+    //     console.log(data.data);
+    //     this.config
+    //       .getWithUrl(
+    //         this.config.url +
+    //           "/wp-json/wc/v3/products?include=" +
+    //           len +
+    //           "&status=publish&order=desc&order_by=date&lang=en&currency=USD&consumer_key=ck_da762414692a236c5db518a709f9335f81d88cde&consumer_secret=cs_4bd7359157697a8356c86597164a6faa7434ff98"
+    //       )
+    //       .then((data: any) => {
+    //         this.NewCat_products = data;
+    //         this.newCatShow = true;
+    //         console.log(JSON.stringify(this.NewCat_products));
+    //       });
+    //   });
+
+    // this.nav.navigateForward("/products/0/0/" + value);
+    // this.router.navigateByUrl(
+    //   this.config.currentRoute + "/categories/" + id + "/" + name
+    // );
+  }
+
+  CloseCl() {
+    this.newCatShow = false;
   }
   ngOnInit() {}
 }

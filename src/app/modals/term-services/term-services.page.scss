@@ -1,9 +1,23 @@
-
-ion-content{
-    ion-text{
-        p{
-            padding-left: 10px;
-            padding-right: 10px;
-        }
+ion-content {
+  ion-text {
+    p {
+      padding-left: 10px;
+      padding-right: 10px;
     }
+  }
+}
+
+.wpb_wrapper {
+  background: lightgray;
+  padding-bottom: 10px;
+}
+
+ion-content.md.hydrated {
+  --background: lightgray;
+  /* --padding-left: 10px !important; */
+}
+
+ion-content.ios.hydrated {
+  --background: lightgray;
+  /* --padding-left: 10px !important; */
 }

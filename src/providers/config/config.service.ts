@@ -25,7 +25,8 @@ if (localStorage.languageCode == undefined) {
 @Injectable()
 export class ConfigService {
   // https://cors-anywhere.herokuapp.com/
-  public url: string = "https://prityshop.com/";
+  public url: string =
+    "https://cors-anywhere.herokuapp.com/https://prityshop.com/";
   public url2: string = "https://prityshop.com"; //https://cors-anywhere.herokuapp.com/
   //https://cors-anywhere.herokuapp.com/
   public consumerKey: string = "ck_da762414692a236c5db518a709f9335f81d88cde";

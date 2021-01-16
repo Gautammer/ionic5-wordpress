@@ -32,12 +32,20 @@ import { CurrencyListPage } from "./modals/currency-list/currency-list.page";
 import { DemoSettingsPage } from "./modals/demo-settings/demo-settings.page";
 import { AppEventsService } from "src/providers/app-events/app-events.service";
 
+import { OnInit, QueryList, ViewChildren } from "@angular/core";
+
+import { AlertController, IonRouterOutlet } from "@ionic/angular";
+
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
   styleUrls: ["app.component.scss"],
 })
 export class AppComponent {
+  lastTimeBackPress = 0;
+  timePeriodToExit = 2000;
+  @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
+
   rootPage: any;
   appPages = [];
   // For all pages
@@ -61,33 +69,33 @@ export class AppComponent {
       ],
       expanded: false,
     },
-    {
-      name: "Categories",
-      icon: "apps",
-      url: "categories/0/0",
-      img: "assets/left-menu-icon/category.png",
-      items: [
-        { name: "1", url: "/categories/0/0" },
-        { name: "2", url: "/categories2/0/0" },
-        { name: "3", url: "/categories3/0/0" },
-        { name: "4", url: "/categories4/0/0" },
-        { name: "5", url: "/categories5/0/0" },
-        { name: "6", url: "/categories6/0/0" },
-      ],
-      expanded: false,
-    },
-    {
-      name: "Shop",
-      icon: "cash",
-      url: "/products/0/0/newest",
-      img: "assets/left-menu-icon/shop.png",
-      items: [
-        { name: "Newest", url: "/products/0/0/newest" },
-        { name: "On Sale", url: "/products/0/0/sale" },
-        { name: "Featured", url: "/products/0/0/featured" },
-      ],
-      expanded: false,
-    },
+    // {
+    //   name: "Categories",
+    //   icon: "apps",
+    //   url: "categories/0/0",
+    //   img: "assets/left-menu-icon/category.png",
+    //   items: [
+    //     { name: "1", url: "/categories/0/0" },
+    //     { name: "2", url: "/categories2/0/0" },
+    //     { name: "3", url: "/categories3/0/0" },
+    //     { name: "4", url: "/categories4/0/0" },
+    //     { name: "5", url: "/categories5/0/0" },
+    //     { name: "6", url: "/categories6/0/0" },
+    //   ],
+    //   expanded: false,
+    // },
+    // {
+    //   name: "Shop",
+    //   icon: "cash",
+    //   url: "/products/0/0/newest",
+    //   img: "assets/left-menu-icon/shop.png",
+    //   items: [
+    //     { name: "Newest", url: "/products/0/0/newest" },
+    //     { name: "On Sale", url: "/products/0/0/sale" },
+    //     { name: "Featured", url: "/products/0/0/featured" },
+    //   ],
+    //   expanded: false,
+    // },
   ];
   a2 = [
     {
@@ -96,24 +104,24 @@ export class AppComponent {
       url: "home",
       img: "assets/left-menu-icon/home.png",
     },
-    {
-      name: "Categories",
-      icon: "apps",
-      url: "categories",
-      img: "assets/left-menu-icon/category.png",
-    },
-    {
-      name: "Shop",
-      icon: "cash",
-      url: "/products",
-      img: "assets/left-menu-icon/shop.png",
-      items: [
-        { name: "Newest", url: "/products/0/0/newest" },
-        { name: "On Sale", url: "/products/0/0/sale" },
-        { name: "Featured", url: "/products/0/0/featured" },
-      ],
-      expanded: false,
-    },
+    // {
+    //   name: "Categories",
+    //   icon: "apps",
+    //   url: "categories",
+    //   img: "assets/left-menu-icon/category.png",
+    // },
+    // {
+    //   name: "Shop",
+    //   icon: "cash",
+    //   url: "/products",
+    //   img: "assets/left-menu-icon/shop.png",
+    //   items: [
+    //     { name: "Newest", url: "/products/0/0/newest" },
+    //     { name: "On Sale", url: "/products/0/0/sale" },
+    //     { name: "Featured", url: "/products/0/0/featured" },
+    //   ],
+    //   expanded: false,
+    // },
   ];
   a3 = [
     {
@@ -299,8 +307,11 @@ export class AppComponent {
     private socialSharing: SocialSharing,
     private deeplinks: Deeplinks,
     public menuCtrl: MenuController,
-    private zone: NgZone
+    private zone: NgZone,
+    private alertController: AlertController
   ) {
+    this.backButtonEvent();
+
     this.initializeApp();
     let connectedToInternet = true;
     network.onDisconnect().subscribe(() => {
@@ -960,5 +971,55 @@ export class AppComponent {
       component: DemoSettingsPage,
     });
     return await modal.present();
+  }
+
+  backButtonEvent() {
+    document.addEventListener("backbutton", async () => {
+      try {
+        const element = await this.modalCtrl.getTop();
+        if (element) {
+          element.dismiss();
+          return;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      this.routerOutlets.forEach(async (outlet: IonRouterOutlet) => {
+        if (this.router.url != "/tabs/home4") {
+          await this.router.navigate(["/tabs/home4"]);
+        } else if (this.router.url === "/tabs/home4") {
+          if (
+            new Date().getTime() - this.lastTimeBackPress >=
+            this.timePeriodToExit
+          ) {
+            await this.presentAlertConfirm();
+            this.lastTimeBackPress = new Date().getTime();
+          }
+          navigator["app"].exitApp(); // work for ionic 4
+        }
+      });
+    });
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      // header: 'Confirm!',
+      message: "Are you sure you want to exit the app?",
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: (blah) => {},
+        },
+        {
+          text: "Close App",
+          handler: () => {
+            navigator["app"].exitApp();
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }

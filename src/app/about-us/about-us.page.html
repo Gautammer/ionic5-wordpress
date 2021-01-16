@@ -1,16 +1,14 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="config.appNavigationTabs">
+      <ion-back-button icon="arrow-back"></ion-back-button>
+    </ion-buttons>
 
-    <ion-menu-button slot="start" *ngIf="!config.appNavigationTabs">
+    <ion-menu-button slot="start">
       <ion-icon name="menu"></ion-icon>
     </ion-menu-button>
 
-    <ion-buttons slot="start">
-      <ion-back-button icon="arrow-back"></ion-back-button>
-    </ion-buttons>
-    <ion-title>
-      {{"About Us"|translate}}
-    </ion-title>
+    <ion-title> {{"About Us"|translate}} </ion-title>
     <ion-buttons slot="end" *ngIf="!config.appNavigationTabs">
       <ion-button fill="clear" routerLink="/search" routerDirection="forward">
         <ion-icon slot="icon-only" name="search"></ion-icon>
@@ -25,8 +23,7 @@
 
 <ion-content>
   <ion-text class="ion-no-padding">
-    <p [innerHTML]="config.aboutUs">
-    </p>
+    <p [innerHTML]="config.aboutUs"></p>
   </ion-text>
   <ion-list>
     <ion-item (click)="openSite()" lines="full">

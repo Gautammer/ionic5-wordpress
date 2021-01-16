@@ -40,7 +40,141 @@
 <ion-content>
   <app-banner></app-banner>
 
-  <ion-row>
+  <div class="container-main" *ngIf="newCatShow">
+    <div class="btn-">
+      <p class="title-txt">Categories</p>
+      <p class="clostx" (click)="CloseCl()">Close</p>
+    </div>
+
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let n of NewCat_products"
+          (click)="showProductDetail(n)"
+          class="animate-item"
+          size="6"
+          class="ion-no-padding"
+        >
+          <div class="img_cr_cont">
+            <img
+              class="pro_img"
+              *ngIf="n.images.length!=0"
+              src="{{n.images[0].src}}"
+              (click)="showProductDetail(n)"
+            />
+            <img
+              class="pro_img"
+              *ngIf="n.images.length==0"
+              src="../../../assets/woocommerce-placeholder.png"
+              (click)="showProductDetail(n)"
+            />
+            <p class="p_name_men">{{n.name}}</p>
+            <p class="p_name_men">{{n.price}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Category for 1st 12 row Electronics, TV&Appliances, Men, Women, Baby & Kids, Winter Collection, Sports, Books & More, Kitchen, Food & Grocery, Home & Furniture, Special Offer, discount offer, -->
+  <div class="container-main" *ngIf="!newCatShow">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let c of shared.getCategoriesPageItems(parent); let i=index"
+          (click)="openProducts(c.id,c.name)"
+          class="animate-item"
+          style="display: contents"
+          size="6"
+          class="ion-no-padding"
+        >
+          <ion-card class="cus" *ngIf="c.name == 'Electronics'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'TVs & Appliances'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Men'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Women'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Baby & Kids'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Winter Collection'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- <ion-row>
     <ion-col>
       <div class="img_cr">
         <img src="../../../assets/banners/brand-1.png" class="brandimg" />
@@ -64,64 +198,157 @@
         <img src="../../../assets/banners/brand-4.png" class="brandimg" />
       </div>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 
-  <div class="container-pro">
-    <ion-row>
-      <ion-col size="6">
-        <div class="produ-new" *ngFor="let p of pro_data_one">
-          <div class="img_src">
-            <img class="product-img" src="{{p.image}}" />
-            <p class="product-name">{{p.name}}</p>
+    <div class="container-pro">
+      <ion-row>
+        <ion-col size="6">
+          <div class="produ-new" *ngFor="let p of pro_data_one">
+            <div class="img_src">
+              <img class="product-img" src="{{p.image}}" />
+              <p class="product-name">{{p.name}}</p>
+            </div>
+            <!-- <app-product [data]="p" [type]="'normal'"></app-product> -->
           </div>
-          <!-- <app-product [data]="p" [type]="'normal'"></app-product> -->
-        </div>
-      </ion-col>
+        </ion-col>
 
-      <!-- <app-product [data]="p" [type]="'normal'"></app-product> -->
-    </ion-row>
-  </div>
+        <!-- <app-product [data]="p" [type]="'normal'"></app-product> -->
+      </ion-row>
+    </div>
 
-  <div class="banner-pro">
-    <img src="../../../assets/banners/banner-11.jpg" class="bnnr-elv" />
-  </div>
+    <div class="banner-pro">
+      <img
+        (click)="openProducts('182', '')"
+        src="../../../assets/banners/banner-11.jpg"
+        class="bnnr-elv"
+      />
+    </div>
 
-  <ion-grid class="ion-no-padding">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let c of shared.getCategoriesPageItems(parent); let i=index"
+          (click)="openProducts(c.id,c.name)"
+          class="animate-item"
+          size="6"
+          class="ion-no-padding"
+          style="display: contents"
+        >
+          <ion-card class="cus" *ngIf="c.name == 'Sports, Books & More'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Kitchen'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Food & Grocery'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Home & Furniture'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Special Combo Packs'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+
+          <ion-card class="cus" *ngIf="c.name == 'Daily Needs'">
+            <ion-avatar>
+              <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
+              <img
+                class="img-src-cat"
+                *ngIf="!c.image"
+                src="assets/placeholder.png"
+              />
+            </ion-avatar>
+            <ion-text>
+              <h6>{{c.name|translate}}</h6>
+            </ion-text>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div class="banner-pro">
+      <img
+        (click)="openProducts('315', '')"
+        src="../../../assets/banners/banner-14.jpg"
+        class="bnnr-elv"
+      />
+    </div>
+
+    <!-- ============ CATEGORY 2 -->
+
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let p of shared.tab2 | slice:0:2; let i=index"
+          (click)="showProductDetail(n)"
+          class="animate-item"
+          size="6"
+          class="ion-no-padding"
+        >
+          <app-product [data]="p" [type]="'normal'"></app-product>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-grid class="ion-no-padding">
     <ion-row class="ion-no-padding">
       <ion-col
-        *ngFor="let c of shared.getCategoriesPageItems(parent) | slice:0:6; let i=index"
-        (click)="openProducts(c.id,c.name)"
-        class="animate-item"
-        size="6"
-        class="ion-no-padding"
-      >
-        <ion-card>
-          <ion-avatar>
-            <img class="img-src-cat" *ngIf="c.image" src="{{c.image.src}}" />
-            <img
-              class="img-src-cat"
-              *ngIf="!c.image"
-              src="assets/placeholder.png"
-            />
-          </ion-avatar>
-          <ion-text>
-            <h6>{{c.name|translate}}</h6>
-          </ion-text>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <div class="banner-pro">
-    <img src="../../../assets/banners/Winter-999.jpg" class="bnnr-elv" />
-  </div>
-
-  <!-- ============ CATEGORY 2 -->
-
-  <ion-grid class="ion-no-padding">
-    <ion-row class="ion-no-padding">
-      <ion-col
-        *ngFor="let c of shared.getCategoriesPageItems(parent) | slice:6:8; let i=index"
+        *ngFor="let c of shared.getCategoriesPageItems(parent) | slice:12:18; let i=index"
         (click)="openProducts(c.id,c.name)"
         class="animate-item"
         size="6"
@@ -139,93 +366,183 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
-  <div class="banner-pro">
-    <img src="../../../assets/banners/banner-14.jpg" class="bnnr-elv" />
-  </div>
+    <div class="banner-pro">
+      <img
+        (click)="openProducts('243', '')"
+        src="../../../assets/banners/Winter-999.jpg"
+        class="bnnr-elv"
+      />
+    </div>
 
-  <ion-row>
-    <ion-col style="text-align: center">
+    <!-- <ion-row> -->
+    <!-- <ion-col style="text-align: center">
       <div class="img_cr">
         <p class="hot-line">Hotline: +88 01844 498 666</p>
-        <!-- <img src="../../../assets/banners/brand-4.png" class="brandimg" /> -->
+        <img src="../../../assets/banners/brand-4.png" class="brandimg" />
       </div>
-    </ion-col>
+    </ion-col> -->
     <!-- <ion-col>
       <div class="img_cr">
         <img src="../../../assets/banners/brand-4.png" class="brandimg" />
       </div>
     </ion-col> -->
-  </ion-row>
+    <!-- </ion-row> -->
 
-  <div class="banner-pro">
-    <img src="../../../assets/banners/banner-12.jpg" class="bnnr-elv" />
-  </div>
-  <p class="title-txt">Mens</p>
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let p of shared.tab1 | slice:2:10; let i=index"
+          (click)="showProductDetail(n)"
+          class="animate-item"
+          size="6"
+          class="ion-no-padding"
+        >
+          <app-product [data]="p" [type]="'normal'"></app-product>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <ion-grid class="ion-no-padding">
-    <ion-row class="ion-no-padding">
-      <ion-col
-        *ngFor="let n of mens_products | slice:0:6; let i=index"
-        (click)="showProductDetail(n)"
-        class="animate-item"
-        size="6"
-        class="ion-no-padding"
-      >
-        <div class="img_cr_cont">
-          <img
-            class="pro_img"
-            *ngIf="n.images.length!=0"
-            src="{{n.images[0].src}}"
-            (click)="showProductDetail(n)"
-          />
-          <img
-            class="pro_img"
-            *ngIf="n.images.length==0"
-            src="../../../assets/woocommerce-placeholder.png"
-            (click)="showProductDetail(n)"
-          />
-          <p class="p_name_men">{{n.name}}</p>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <div class="banner-pro">
+      <img
+        (click)="openProducts('182', '')"
+        src="../../../assets/banners/banner-12.jpg"
+        class="bnnr-elv"
+      />
+    </div>
+    <p class="title-txt">Mens</p>
 
-  <div class="banner-pro">
-    <img src="../../../assets/banners/banner-phone.jpg" class="bnnr-elv" />
-  </div>
-  <p class="title-txt">Mobiles</p>
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let n of mens_products | slice:6:12; let i=index"
+          (click)="showProductDetail(n)"
+          class="animate-item"
+          size="6"
+          class="ion-no-padding"
+        >
+          <div class="img_cr_cont">
+            <img
+              class="pro_img"
+              *ngIf="n.images.length!=0"
+              src="{{n.images[0].src}}"
+              (click)="showProductDetail(n)"
+            />
+            <img
+              class="pro_img"
+              *ngIf="n.images.length==0"
+              src="../../../assets/woocommerce-placeholder.png"
+              (click)="showProductDetail(n)"
+            />
+            <p class="p_name_men">{{n.name}}</p>
+            <p class="p_name_men">{{n.price}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <ion-grid class="ion-no-padding">
-    <ion-row class="ion-no-padding">
-      <ion-col
-        *ngFor="let n of Mobiles_products | slice:0:6; let i=index"
-        (click)="showProductDetail(n)"
-        class="animate-item"
-        size="6"
-        class="ion-no-padding"
-      >
-        <div class="img_cr_cont">
-          <img
-            class="pro_img"
-            *ngIf="n.images.length!=0"
-            src="{{n.images[0].src}}"
-            (click)="showProductDetail(n)"
-          />
-          <img
-            class="pro_img"
-            *ngIf="n.images.length==0"
-            src="../../../assets/woocommerce-placeholder.png"
-            (click)="showProductDetail(n)"
-          />
-          <p class="p_name_men">{{n.name}}</p>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <div class="banner-pro">
+      <img
+        (click)="openProducts('64', '')"
+        src="../../../assets/banners/banner-phone.jpg"
+        class="bnnr-elv"
+      />
+    </div>
+    <p class="title-txt">Mobiles</p>
 
-  <!-- <ion-row>
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let n of Mobiles_products | slice:0:6; let i=index"
+          (click)="showProductDetail(n)"
+          class="animate-item"
+          size="6"
+          class="ion-no-padding"
+        >
+          <div class="img_cr_cont">
+            <img
+              class="pro_img"
+              *ngIf="n.images.length!=0"
+              src="{{n.images[0].src}}"
+              (click)="showProductDetail(n)"
+            />
+            <img
+              class="pro_img"
+              *ngIf="n.images.length==0"
+              src="../../../assets/woocommerce-placeholder.png"
+              (click)="showProductDetail(n)"
+            />
+            <p class="p_name_men">{{n.name}}</p>
+            <p class="p_name_men">{{n.price}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <p class="title-txt">Womens</p>
+
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let n of womens_products | slice:6:12; let i=index"
+          (click)="showProductDetail(n)"
+          class="animate-item"
+          size="6"
+          class="ion-no-padding"
+        >
+          <div class="img_cr_cont">
+            <img
+              class="pro_img"
+              *ngIf="n.images.length!=0"
+              src="{{n.images[0].src}}"
+              (click)="showProductDetail(n)"
+            />
+            <img
+              class="pro_img"
+              *ngIf="n.images.length==0"
+              src="../../../assets/woocommerce-placeholder.png"
+              (click)="showProductDetail(n)"
+            />
+            <p class="p_name_men">{{n.name}}</p>
+            <p class="p_name_men">{{n.price}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <p class="title-txt">Kids</p>
+
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding">
+        <ion-col
+          *ngFor="let n of kids_products | slice:6:12; let i=index"
+          (click)="showProductDetail(n)"
+          class="animate-item"
+          size="6"
+          class="ion-no-padding"
+        >
+          <div class="img_cr_cont">
+            <img
+              class="pro_img"
+              *ngIf="n.images.length!=0"
+              src="{{n.images[0].src}}"
+              (click)="showProductDetail(n)"
+            />
+            <img
+              class="pro_img"
+              *ngIf="n.images.length==0"
+              src="../../../assets/woocommerce-placeholder.png"
+              (click)="showProductDetail(n)"
+            />
+            <p class="p_name_men">{{n.name}}</p>
+            <p class="p_name_men">{{n.price}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-row>
     <ion-col>
       <div class="img_cr">
         <img src="../../../assets/banners/brand-3.png" class="brandimg" />
@@ -238,7 +555,7 @@
     </ion-col>
   </ion-row> -->
 
-  <!-- <ion-grid class="ion-no-padding">
+    <!-- <ion-grid class="ion-no-padding">
     <ion-row class="ion-no-padding">
       <ion-col
         *ngFor="let c of shared.getCategoriesPageItems(parent) | slice:0:10; let i=index"
@@ -260,5 +577,6 @@
       </ion-col>
     </ion-row>
   </ion-grid> -->
-  <!-- category avatar -->
+    <!-- category avatar -->
+  </div>
 </ion-content>
